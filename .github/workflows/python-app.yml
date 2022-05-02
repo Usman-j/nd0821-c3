@@ -9,6 +9,11 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  aws-access-key-id: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
+  aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
+  aws-region: us-east-1
+
 permissions:
   contents: read
 
@@ -29,6 +34,10 @@ jobs:
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt
         pip install -e starter/; fi
+    - name: Setup DVC
+      uses: iterative/setup-dvc@v1
+    - name: Pull data from DVC
+      run: dvc pull 
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -38,9 +47,5 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
-    - name: Configure AWS credentials from Production account
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
+   
+        
