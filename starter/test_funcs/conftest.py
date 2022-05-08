@@ -8,8 +8,8 @@ from sklearn.model_selection import train_test_split
 
 @pytest.fixture
 def train_data():
-    # main_dir_path = Path(__file__).parent.parent.absolute()
-    df_census = pd.read_csv('starter/data/census_cleaned.csv')
+    main_dir_path = Path(__file__).parent.parent.absolute()
+    df_census = pd.read_csv(os.path.join(main_dir_path,'data','census_cleaned.csv'))
     train, _ = train_test_split(df_census, test_size=0.20, stratify=df_census['salary'], random_state=42)
     return train
 
@@ -26,3 +26,5 @@ def categorical_feats():
         "native-country",
     ]
     return cat_features
+
+
