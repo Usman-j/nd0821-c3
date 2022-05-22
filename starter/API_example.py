@@ -28,4 +28,5 @@ Local API example
 Live API example
 '''
 r = requests.post("https://usman-census-api.herokuapp.com/predict/", data= json.dumps(data))
-print(r.json())
+print('Status code: ', r.status_code)
+print('Model Inference: ', r.json())

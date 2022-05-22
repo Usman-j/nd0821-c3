@@ -33,7 +33,7 @@ cat_features = [
 X_train, y_train, encoder, lb = process_data(
     train, categorical_features=cat_features, label="salary", training=True
 )
-# Sacing encoder and lb
+# Saving encoder and lb
 joblib.dump(encoder, os.path.join(main_dir_path,'model','encoder.joblib'))
 joblib.dump(lb, os.path.join(main_dir_path,'model','binarizer.joblib'))
 # Proces the test data with the process_data function.
